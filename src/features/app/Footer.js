@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 import MyLink from "../../tools/myLink";
 import MyInput from "../../tools/myInput";
@@ -8,14 +8,26 @@ import topmyanmar from '../../assets/image/carosel/topmyanmar.png'
 
 const Footer = props => {
   const { media } = props;
+  const [err, setErr] = useState('');
+
+  const check = (e) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value))
+    {
+      setErr("");
+    }
+    else if(!e.target.value) setErr("");
+    // else setErr('');
+    else setErr("Please fill valid email!");
+  }
+
   return (
-    <div>
+    <div style={{width: '100%', overflow: 'hidden'}}>
       {/*  */}
       <div
         className="row border-top pt-3"
-        style={{ color: Colors.textwhite, opacity: 0.5, width: '100%' }}
+        style={{ color: Colors.textwhite}}
       >
-        <div className="container-fluid py-3" style={{ background: "#9a9a9a" }}>
+        <div className="container-fluid py-3" style={{ background: "rgb(197, 197, 197)" }}>
           <div className="d-flex flex-row flex-wrap justify-content-between text-light">
             <div className="d-flex flex-row flex-fill align-items-center">
               {/* <i className="fa fa-envelope fa-2x px-4" /> */}
@@ -27,26 +39,27 @@ const Footer = props => {
                       <input
                         type="text"
                         placeHolder={"Enter your name"}
-                        style={{ background: 'white', color: 'black', height: '50px', width: '100%', padding: '5px' }} require
+                        style={{ background: 'white', color: 'black', height: '50px', width: '100%', padding: '5px' }} required
                       />
                       <textarea
                         type="text"
                         placeHolder={"Enter your message"}
-                        style={{ background: 'white', color: 'black', marginTop: '20px', width: '100%', height: '120px', padding: '5px' }} require
+                        style={{ background: 'white', color: 'black', marginTop: '20px', width: '100%', height: '120px', padding: '5px' }} required
                       />
                     </div>
                     <div className="col-sm-6">
                       <input
                         type="mail"
-                        placeHolder={"Enter your email"}
-                        style={{ background: "white", color: 'black', height: '50px', width: '100%', padding: '5px' }} require
+                        placeHolder={"Enter your email"} onChange={(e)=>check(e)}
+                        style={{ background: "white", color: 'black', height: '50px', width: '100%', padding: '5px' }} required
                       />
+                      <span style={{color: 'red', display: 'block', position: 'absolute'}}>{err}</span>
                       <input
                         type="text"
                         placeHolder={"Enter your subject"}
-                        style={{ background: 'white', color: 'black', marginTop: '20px', height: '50px', width: '100%', padding: '5px' }} require
+                        style={{ background: 'white', color: 'black', marginTop: '20px', height: '50px', width: '100%', padding: '5px' }} required
                       />
-                      <input type="submit" value="Send" style={{ height: 50, width: '100%', background: '#826100', color: Colors.textwhite, marginTop: '20px' }}
+                      <input type="submit" disabled={err !== ''} value="Send" style={{ height: 50, width: '100%', background: '#bf961a', color: Colors.textwhite, marginTop: '20px' }}
                       />
                     </div>
                   </div>
