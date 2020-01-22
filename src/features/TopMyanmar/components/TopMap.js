@@ -23,8 +23,8 @@ const TopMap = () => {
                 defaultZoom={pro.zoom}
             >
                 <AnyReactComponent
-                    lat={21.9426}
-                    lng={96.1078}
+                    lat={21.888094}
+                    lng={96.100359}
                     text=""
                 />
             </GoogleMapReact>

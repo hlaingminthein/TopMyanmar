@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "emailjs": "^2.2.0",
     "font-awesome": "^4.7.0",
     "google-map-react": "^1.1.5",
     "jquery": "^3.4.1",
@@ -18,7 +19,8 @@
     "react-responsive-carousel": "^3.1.51",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "react-slick": "^0.25.2"
+    "react-slick": "^0.25.2",
+    "sendmail": "^1.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

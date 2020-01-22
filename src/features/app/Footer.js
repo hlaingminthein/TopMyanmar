@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 import MyLink from "../../tools/myLink";
 import MyInput from "../../tools/myInput";
@@ -11,21 +11,47 @@ const Footer = props => {
   const [err, setErr] = useState('');
 
   const check = (e) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value))
-    {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
       setErr("");
     }
-    else if(!e.target.value) setErr("");
+    else if (!e.target.value) setErr("");
     // else setErr('');
     else setErr("Please fill valid email!");
   }
 
+  /////////
+  var email = require("emailjs/email");
+  var server = email.server.connect({
+    user: "username",
+    password: "password",
+    host: "smtp.your-email.com",
+    ssl: false
+  });
+
+  var message = {
+    text: "i hope this works",
+    from: "you <username@your-email.com>",
+    to: "someone <someone@your-email.com>, another <another@your-email.com>",
+    cc: "else <else@your-email.com>",
+    subject: "testing emailjs",
+    attachment:
+      [
+        { data: "<html>i <i>hope</i> this works!</html>", alternative: true },
+      ]
+  };
+
+  const sendEmail = (e) => {
+    console.log('hello');
+    server.send(message, function (err, message) { console.log(err || message); });
+  }
+
+  /////////
   return (
-    <div style={{width: '100%', overflow: 'hidden'}}>
+    <div style={{ width: '100%', overflow: 'hidden' }}>
       {/*  */}
       <div
         className="row border-top pt-3"
-        style={{ color: Colors.textwhite}}
+        style={{ color: Colors.textwhite }}
       >
         <div className="container-fluid py-3" style={{ background: "rgb(197, 197, 197)" }}>
           <div className="d-flex flex-row flex-wrap justify-content-between text-light">
@@ -33,7 +59,7 @@ const Footer = props => {
               {/* <i className="fa fa-envelope fa-2x px-4" /> */}
               <div className="col-lg-12">
                 <h3>Don't know where to start? Let's get in touch!</h3> <br></br>
-                <form action="topmyanmar.mtn@gmail.com" method="post">
+                <form>
                   <div className="row">
                     <div className="col-sm-6">
                       <input
@@ -49,18 +75,18 @@ const Footer = props => {
                     </div>
                     <div className="col-sm-6">
                       <input
-                        type="mail"
-                        placeHolder={"Enter your email"} onChange={(e)=>check(e)}
+                        type="mail" text="Froml"
+                        placeHolder={"Enter your email"} onChange={(e) => check(e)}
                         style={{ background: "white", color: 'black', height: '50px', width: '100%', padding: '5px' }} required
                       />
-                      <span style={{color: 'red', display: 'block', position: 'absolute'}}>{err}</span>
+                      <span style={{ color: 'red', display: 'block', position: 'absolute' }}>{err}</span>
                       <input
                         type="text"
                         placeHolder={"Enter your subject"}
                         style={{ background: 'white', color: 'black', marginTop: '20px', height: '50px', width: '100%', padding: '5px' }} required
                       />
-                      <input type="submit" disabled={err !== ''} value="Send" style={{ height: 50, width: '100%', background: '#bf961a', color: Colors.textwhite, marginTop: '20px' }}
-                      />
+                      <input type="button" disabled={err !== ''} value="Send" style={{ height: 50, width: '100%', background: '#bf961a', color: Colors.textwhite, marginTop: '20px' }}
+                        value="Send Email" onClick={() => sendEmail()}></input>
                     </div>
                   </div>
                 </form>
